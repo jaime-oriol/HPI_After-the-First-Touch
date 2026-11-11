@@ -1,0 +1,29 @@
+% The paper's diagrams in TikZ: Hudl's colours and Barlow, the values of src/viz/paper.py, on the light card the charts sit
+% on. Font paths are relative to this folder, so compile from it (renders/render_segments.py does).
+\usepackage{fontspec}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,calc}
+\setmainfont{Barlow}[Path=../../figures/fonts/, Extension=.ttf, UprightFont=*-Regular, BoldFont=*-Bold]
+\newfontfamily\medium{Barlow}[Path=../../figures/fonts/, Extension=.ttf, UprightFont=*-Medium]
+% a label never breaks a word
+\hyphenpenalty=10000 \exhyphenpenalty=10000
+\frenchspacing
+
+\definecolor{page}{HTML}{F9FAFB}
+\definecolor{ink}{HTML}{232A31}
+\definecolor{ink2}{HTML}{4E5D6C}
+\definecolor{context}{HTML}{B1BCC4}
+\definecolor{after}{HTML}{FF6300}
+
+\pgfdeclarelayer{canvas}
+\pgfsetlayers{canvas,main}
+
+% the type sizes of the charts: 7.5 pt for a name, 7 pt for the rest
+\newcommand{\hd}{\fontsize{7.5}{9}\selectfont\bfseries}
+\newcommand{\bd}{\fontsize{7}{8.4}\selectfont}
+
+\tikzset{
+  flow/.style={-{Stealth[length=4pt]}, draw=ink2, line width=0.6pt},
+  box/.style={draw=context, line width=0.6pt, fill=white, rounded corners=2pt, inner sep=0pt},
+  answer/.style={font=\bd\medium, text=ink2, inner sep=2pt},
+}

@@ -1,0 +1,97 @@
+league,pos,team_ref,pts
+premier_league,1,Arsenal,85
+premier_league,2,Manchester City,78
+premier_league,3,Manchester United,71
+premier_league,4,Aston Villa,65
+premier_league,5,Liverpool,60
+premier_league,6,Bournemouth,57
+premier_league,7,Sunderland,54
+premier_league,8,Brighton & Hove Albion,53
+premier_league,9,Brentford,53
+premier_league,10,Chelsea,52
+premier_league,11,Fulham,52
+premier_league,12,Newcastle United,49
+premier_league,13,Everton,49
+premier_league,14,Leeds United,47
+premier_league,15,Crystal Palace,45
+premier_league,16,Nottingham Forest,44
+premier_league,17,Tottenham Hotspur,41
+premier_league,18,West Ham United,39
+premier_league,19,Burnley,22
+premier_league,20,Wolverhampton Wanderers,20
+la_liga,1,Barcelona,94
+la_liga,2,Real Madrid,86
+la_liga,3,Villarreal,72
+la_liga,4,Atlético Madrid,69
+la_liga,5,Real Betis,60
+la_liga,6,Celta Vigo,54
+la_liga,7,Getafe,51
+la_liga,8,Rayo Vallecano,50
+la_liga,9,Valencia,49
+la_liga,10,Real Sociedad,46
+la_liga,11,Espanyol,46
+la_liga,12,Athletic Bilbao,45
+la_liga,13,Sevilla,43
+la_liga,14,Alavés,43
+la_liga,15,Elche,43
+la_liga,16,Levante,42
+la_liga,17,Osasuna,42
+la_liga,18,Mallorca,42
+la_liga,19,Girona,41
+la_liga,20,Real Oviedo,29
+serie_a,1,Inter Milan,87
+serie_a,2,Napoli,76
+serie_a,3,Roma,73
+serie_a,4,Como,71
+serie_a,5,AC Milan,70
+serie_a,6,Juventus,69
+serie_a,7,Atalanta,59
+serie_a,8,Bologna,56
+serie_a,9,Lazio,54
+serie_a,10,Udinese,50
+serie_a,11,Sassuolo,49
+serie_a,12,Torino,45
+serie_a,13,Parma,45
+serie_a,14,Cagliari,43
+serie_a,15,Fiorentina,42
+serie_a,16,Genoa,41
+serie_a,17,Lecce,38
+serie_a,18,Cremonese,34
+serie_a,19,Hellas Verona,21
+serie_a,20,Pisa,18
+bundesliga,1,Bayern Munich,89
+bundesliga,2,Borussia Dortmund,73
+bundesliga,3,RB Leipzig,65
+bundesliga,4,VfB Stuttgart,62
+bundesliga,5,TSG Hoffenheim,61
+bundesliga,6,Bayer Leverkusen,59
+bundesliga,7,SC Freiburg,47
+bundesliga,8,Eintracht Frankfurt,44
+bundesliga,9,FC Augsburg,43
+bundesliga,10,Mainz 05,40
+bundesliga,11,Union Berlin,39
+bundesliga,12,Borussia Mönchengladbach,38
+bundesliga,13,Hamburger SV,38
+bundesliga,14,1. FC Köln,32
+bundesliga,15,Werder Bremen,32
+bundesliga,16,VfL Wolfsburg,29
+bundesliga,17,1. FC Heidenheim,26
+bundesliga,18,FC St. Pauli,26
+ligue_1,1,Paris Saint-Germain,76
+ligue_1,2,Lens,70
+ligue_1,3,Lille,61
+ligue_1,4,Lyon,60
+ligue_1,5,Marseille,59
+ligue_1,6,Rennes,59
+ligue_1,7,Monaco,54
+ligue_1,8,Strasbourg,53
+ligue_1,9,Toulouse,45
+ligue_1,10,Lorient,45
+ligue_1,11,Paris FC,44
+ligue_1,12,Brest,39
+ligue_1,13,Angers,36
+ligue_1,14,Le Havre,35
+ligue_1,15,Auxerre,34
+ligue_1,16,Nice,32
+ligue_1,17,Nantes,24
+ligue_1,18,Metz,17

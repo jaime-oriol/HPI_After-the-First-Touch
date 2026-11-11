@@ -1,0 +1,78 @@
+[project]
+name = "hpi-2026-corners"
+version = "0.1.0"
+description = "Set-piece research for the Hudl Performance Insights 2026 call: what decides the second ball after the first touch."
+license = "MIT"
+requires-python = ">=3.10"
+dependencies = [
+    # Capped below 3: pandas 3 hands back read-only arrays and string dtypes the code was not written for,
+    # and the suite is run on the 2.x line.
+    "pandas>=2.0,<3",
+    "pyarrow>=14.0",
+    "numpy>=1.24",
+    "scipy>=1.10",
+    # Capped below 1.10, which removes the `penalty` the logistic fits of s03, s05 and the positive control
+    # pass; 1.8 deprecated it, and until 1.10 it warns and is honoured.
+    "scikit-learn>=1.3,<1.10",   # s02b-s05: LogisticRegression, TweedieRegressor, GroupKFold
+    # Both arrive with scikit-learn and both are imported directly, so they are declared rather
+    # than inherited: joblib fans out every build and every refit draw, and threadpoolctl is what
+    # pins one BLAS thread per fit, which validate.refit_cluster_bootstrap needs to return the
+    # same interval serial and parallel.
+    "joblib>=1.3",
+    "threadpoolctl>=3.1",
+    # Both are imported inside the function that needs them, so a module still imports without
+    # them and only the run fails. They carry two published verdicts: the strong learner the
+    # sufficiency null is measured against (s04b.tuned_gbt_oof) and the nested search that tunes
+    # GPU1 (run_frame_gpu). Floors are the major lines those verdicts were produced on, not a
+    # guess at where the API arrived.
+    "lightgbm>=4.0,<5",    # s04b_snapshot: the gradient-boosted arm; 4.7 deprecates the eval_set it passes
+    "optuna>=3.4",         # s04b_snapshot + run_frame_gpu: the nested per-fold search
+    # run_team_shrinkage only, and imported at module level there. The floors are the majors the
+    # published fit was produced on: the driver works around a PyMC 5.25 behaviour by name, so a
+    # lower major would not be the same run.
+    "pymc>=5.25",
+    "arviz>=0.23",
+    "matplotlib>=3.7",     # src/viz + renders/
+    "mplsoccer>=1.2",      # pitch drawing + ball marker
+    "Pillow>=10.0",        # logos and stat icons in src/viz/common.py
+]
+
+[project.optional-dependencies]
+# run_frame_gpu and run_frame_gnn, and the tests of both, import it at module level. The floors of the
+# two groups are the versions the published records and the builds were produced on.
+gpu = [
+    "torch>=2.13",
+]
+# renders/render_paper.py and its test.
+paper = [
+    "python-docx>=1.2",
+    "lxml>=5.4",
+]
+notebook = [
+    "jupyterlab>=4.0",
+    "ipykernel>=6.0",
+]
+dev = [
+    "pytest>=7.0",
+    "ruff>=0.4",
+]
+
+[build-system]
+requires = ["setuptools>=77", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.ruff]
+line-length = 120
+target-version = "py310"
+
+[tool.ruff.lint]
+# Pinned, so "passes ruff" means the same thing on every install: with no selection ruff 0.16
+# enables about four hundred rules, most of them style, and ruff 0.4 enabled four families. These
+# catch defects (syntax, undefined names, unused imports, the bugbear traps such as a closure
+# reading a loop variable late). Style is left to review.
+select = ["E4", "E7", "E9", "F", "B"]
+# E731, E741 and B007 are style.
+ignore = ["E731", "E741", "B007"]

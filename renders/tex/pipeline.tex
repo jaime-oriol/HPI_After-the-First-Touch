@@ -1,0 +1,118 @@
+% !TEX program = xelatex
+% The analysis from a corner to its results, laid out as a method diagram: the events split at the first touch and counted
+% (above, in orange: what happens after the first touch), the freeze-frame turned into the plan and set against the
+% delivery in a model (below, in slate: what is taken at the kick), and the intervals and nulls both share. Each module carries a
+% small drawing of what it handles. renders/render_pipeline.py writes pipeline-defs.tex (the number of matches, from the
+% record) and compiles this file from this folder with that file on TEXINPUTS.
+\documentclass[border=0pt]{standalone}
+\input{hudl_tikz}
+\input{pipeline-defs}
+\usetikzlibrary{decorations.pathreplacing}
+
+\definecolor{orangetint}{HTML}{FFEEE2}
+\definecolor{slatetint}{HTML}{EAEEF2}
+\newcommand{\gt}{\fontsize{8}{9.6}\selectfont\bfseries}
+
+% \group{x0}{y0}{x1}{y1}{colour}{title}: a dashed frame with its title on the top border
+\newcommand{\group}[6]{%
+  \draw[#5, dashed, line width=0.7pt, rounded corners=5pt] (#1,#2) rectangle (#3,#4);
+  \node[fill=page, font=\gt, text=ink, inner sep=3pt] at ({(#1+#3)/2},#4) {#6};}
+% \module{name}{x}{y}{fill}{edge}{title}{text}: a module 3.2 cm wide and 2.4 cm high, its drawing in the upper part,
+% its title and a line of text below it
+\newcommand{\module}[7]{%
+  \node[draw=#5, fill=#4, line width=0.7pt, rounded corners=4pt, minimum width=3.2cm, minimum height=2.4cm, anchor=south west] (#1) at (#2,#3) {};
+  \node[font=\hd, text=ink, anchor=north] at ([yshift=-1.12cm]#1.north) {#6};
+  \node[font=\bd, text=ink2, text width=2.9cm, align=center, anchor=north] at ([yshift=-1.46cm]#1.north) {#7};}
+
+% the drawings, each around the point given: a goal end with its dots, a timeline with its split, a bar split in two,
+% a grid, three nested bars and an interval
+\newcommand{\goalend}[1]{\begin{scope}[shift={(#1)}]
+  \draw[ink2, line width=0.45pt, fill=white] (-0.95,-0.38) rectangle (0.95,0.4);
+  \draw[ink2, line width=0.45pt] (-0.5,0.4) -- (-0.5,0.02) -- (0.5,0.02) -- (0.5,0.4);
+  \draw[ink2, line width=0.45pt] (-0.22,0.4) -- (-0.22,0.22) -- (0.22,0.22) -- (0.22,0.4);\end{scope}}
+\newcommand{\streamicon}[1]{\goalend{#1}\begin{scope}[shift={(#1)}]
+  \draw[after, line width=0.9pt, densely dotted] (-0.7,-0.25) -- (-0.15,0.1) -- (0.2,-0.08) -- (0.62,0.16);
+  \foreach \p in {(-0.7,-0.25),(-0.15,0.1),(0.2,-0.08)} \fill[ink2] \p circle (0.05);
+  \fill[after] (0.62,0.16) circle (0.065);\end{scope}}
+\newcommand{\cuticon}[1]{\begin{scope}[shift={(#1)}]
+  \draw[ink2, line width=0.9pt, -{Stealth[length=3pt]}] (-0.95,-0.08) -- (-0.1,-0.08);
+  \draw[after, line width=1.4pt, -{Stealth[length=3pt]}] (-0.1,-0.08) -- (0.95,-0.08);
+  \draw[ink, line width=0.6pt, dashed] (-0.1,-0.3) -- (-0.1,0.28);
+  \node[font=\fontsize{6.5}{7.8}\selectfont, text=ink, anchor=north] at (-0.1,-0.32) {first touch};\end{scope}}
+\newcommand{\sharicon}[1]{\begin{scope}[shift={(#1)}]
+  \fill[context] (-0.9,-0.14) rectangle (0.0,0.14);
+  \fill[after] (0.0,-0.14) rectangle (0.9,0.14);
+  \draw[ink2, line width=0.45pt] (-0.9,-0.14) rectangle (0.9,0.14);
+  \draw[ink2, line width=0.45pt, decorate, decoration={brace, amplitude=2pt, mirror}] (0.0,-0.2) -- (0.9,-0.2);\end{scope}}
+\newcommand{\frameicon}[1]{\goalend{#1}\begin{scope}[shift={(#1)}]
+  \foreach \p in {(-0.35,0.28),(-0.05,0.3),(0.3,0.26),(-0.1,0.12),(0.12,0.1),(-0.45,0.1)} \fill[ink] \p circle (0.05);
+  \foreach \p in {(-0.2,0.3),(0.05,0.2),(0.22,0.3),(-0.3,0.18),(0.4,0.12),(0.0,-0.02)} \draw[ink2, line width=0.4pt, fill=white] \p circle (0.05);\end{scope}}
+\newcommand{\planicon}[1]{\begin{scope}[shift={(#1)}]
+  % the box to scale (18 yd deep, 44 wide): the six-yard width in three columns over the six-yard row and the row to
+  % fifteen yards, a cell on each side, and the frontal in orange, the strip in front of the box and the central block
+  \fill[slatetint] (-0.6,-0.1) rectangle (0.6,0.4);
+  \fill[after!35] (-0.6,-0.4) rectangle (0.6,-0.1);
+  \fill[after!35] (-0.278,-0.1) rectangle (0.278,-0.017);
+  \draw[ink2, line width=0.45pt] (-0.6,-0.4) rectangle (0.6,0.4);
+  \draw[ink2, line width=0.4pt, densely dotted] (-0.278,-0.1) -- (-0.278,0.4);
+  \draw[ink2, line width=0.4pt, densely dotted] (0.278,-0.1) -- (0.278,0.4);
+  \draw[ink2, line width=0.4pt, densely dotted] (-0.093,-0.017) -- (-0.093,0.4);
+  \draw[ink2, line width=0.4pt, densely dotted] (0.093,-0.017) -- (0.093,0.4);
+  \draw[ink2, line width=0.4pt, densely dotted] (-0.278,0.233) -- (0.278,0.233);
+  \draw[ink2, line width=0.4pt, densely dotted] (-0.278,-0.017) -- (0.278,-0.017);
+  \draw[ink2, line width=0.4pt] (-0.6,-0.1) -- (0.6,-0.1);\end{scope}}
+\newcommand{\ladder}[1]{\begin{scope}[shift={(#1)}]
+  \fill[context] (-0.7,-0.34) rectangle (0.0,-0.18);
+  \fill[ink2] (-0.7,-0.08) rectangle (0.3,0.08);
+  \fill[ink2!55] (-0.7,0.18) rectangle (0.5,0.34);
+  \draw[ink, line width=0.5pt, densely dashed] (0.0,-0.4) -- (0.0,0.4);
+  \draw[ink2, line width=0.45pt, <->, shorten >=0.5pt, shorten <=0.5pt] (0.0,-0.13) -- (0.3,-0.13);
+  \node[font=\fontsize{6}{7}\selectfont, text=ink2, anchor=west] at (0.38,-0.12) {step};\end{scope}}
+\newcommand{\interval}[1]{\begin{scope}[shift={(#1)}]
+  \draw[ink, line width=0.6pt] (-0.1,-0.38) -- (-0.1,0.38);
+  \draw[ink2, line width=0.9pt] (-0.62,0.0) -- (0.5,0.0);
+  \draw[ink2, line width=0.9pt] (-0.62,-0.07) -- (-0.62,0.07);
+  \draw[ink2, line width=0.9pt] (0.5,-0.07) -- (0.5,0.07);
+  \fill[ink2] (-0.1,0.0) circle (0.07);
+  \draw[ink2, line width=0.5pt, densely dashed] (0.78,-0.38) -- (0.78,0.38);
+  \fill[after] (0.0,0.0) circle (0.0);\end{scope}}
+
+\begin{document}
+\begin{tikzpicture}
+\begin{pgfonlayer}{canvas}\fill[page] (0,0) rectangle (16.51,7.7);\end{pgfonlayer}
+
+% the two lanes
+\group{0.25}{4.2}{12.25}{7.4}{after}{After the kick: the events}
+\group{0.25}{0.25}{12.25}{3.45}{ink2}{At the kick: the freeze-frame}
+
+\module{events}{0.55}{4.5}{orangetint}{after}{Event stream}{Every action on the ball in \matches\ matches}
+\module{cut}{4.45}{4.5}{orangetint}{after}{Segmentation}{First contact, then five segments for every shot}
+\module{count}{8.35}{4.5}{orangetint}{after}{Counting}{Share, conversion and goals against xG}
+\module{frame}{0.55}{0.55}{slatetint}{ink2}{Freeze-frame}{The players the camera shows at the kick}
+\module{plan}{4.45}{0.55}{slatetint}{ink2}{The plan}{Three jobs, eleven cells and the 360 block}
+\module{model}{8.35}{0.55}{slatetint}{ink2}{The model}{Five outcomes, three nested models}
+
+\node[draw=ink2, fill=white, line width=0.7pt, rounded corners=4pt, minimum width=3.2cm, minimum height=2.9cm, anchor=south west] (read) at (13.0,2.45) {};
+\node[font=\hd, text=ink, anchor=north] at ([yshift=-1.12cm]read.north) {Intervals and nulls};
+\node[font=\bd, text=ink2, text width=2.9cm, align=center, anchor=north] at ([yshift=-1.46cm]read.north) {Refit interval, minimum detectable effect, positive control};
+
+% the drawings
+\streamicon{2.15,6.45}
+\cuticon{6.05,6.45}
+\sharicon{9.95,6.45}
+\frameicon{2.15,2.5}
+\planicon{6.05,2.5}
+\ladder{9.95,2.5}
+\interval{14.6,4.75}
+
+% the arrows
+\draw[flow] (events.east) -- (cut.west);
+\draw[flow] (cut.east) -- (count.west);
+\draw[flow] (frame.east) -- (plan.west);
+\draw[flow] (plan.east) -- (model.west);
+\draw[flow] (cut.south) -- ++(0,-0.65) -| (model.north);
+\node[answer, anchor=south] at (8.15,3.82) {the outcome};
+\draw[flow] (count.east) -| (read.north);
+\draw[flow] (model.east) -| (read.south);
+\end{tikzpicture}
+\end{document}

@@ -1,0 +1,65 @@
+# Secrets
+.env
+.envrc
+credentials*
+*.pem
+*.key
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+.uv/
+*.egg-info/
+build/
+dist/
+
+# Jupyter
+.ipynb_checkpoints/
+*.nbconvert.ipynb
+
+# Model artifacts. No stage writes one: everything refits from the cached parquet.
+*.pkl
+*.joblib
+*.pt
+*.pth
+*.h5
+*.onnx
+*.tflite
+models/local/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+.DS_Store
+
+# Test / coverage
+.pytest_cache/
+.coverage
+htmlcov/
+
+# The granted Hudl export and everything derived from it. Never committed.
+data/
+
+# docs/ is ALLOWLISTED rather than denylisted: everything here is private by default and a file
+# becomes public only by being named below. A denylist would publish the next document by
+# omission, and what enters the history once stays there.
+docs/*
+!docs/architecture.md
+!docs/data_schema.md
+!docs/definitions.md
+
+# Generated clips (regenerable from renders/, heavy)
+figures/*.mp4
+
+# Generated renders (regenerable from renders/)
+figures/*.png
+figures/*.svg
+figures/talk/
+
+# Club crests: third-party trade marks. Using one inside a figure is editorial use;
+# redistributing the set as files is not.
+figures/logos/clubs/
